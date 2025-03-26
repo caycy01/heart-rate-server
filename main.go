@@ -54,6 +54,7 @@ func main() {
 	r.Use(middleware.JSONContentTypeMiddleware)
 
 	// Public routes
+	r.HandleFunc("/", app.IndexHandler).Methods("GET")
 	r.HandleFunc("/health", handlers.HealthHandler).Methods("GET")
 	r.HandleFunc("/register", app.RegisterHandler).Methods("POST")
 	r.HandleFunc("/login", app.LoginHandler).Methods("POST")
