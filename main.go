@@ -49,7 +49,7 @@ func main() {
 	r := mux.NewRouter()
 
 	// Global middleware
-	r.Use(middleware.LoggingMiddleware)
+	//r.Use(middleware.LoggingMiddleware)
 	r.Use(middleware.RecoveryMiddleware)
 	r.Use(middleware.JSONContentTypeMiddleware)
 
