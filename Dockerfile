@@ -64,6 +64,7 @@ USER appuser
 
 # 从 "build" 阶段复制可执行文件
 COPY --from=build /bin/server /bin/
+COPY templates /templates/
 
 # 暴露应用程序监听的端口
 EXPOSE 8080
