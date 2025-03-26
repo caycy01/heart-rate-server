@@ -102,8 +102,12 @@ func (app *App) LatestHeartRateHandler(w http.ResponseWriter, r *http.Request) {
 		utils.SendError(w, http.StatusInternalServerError, err, "Failed to parse data")
 		return
 	}
+	var resultData models.HeartRateDataResponse
+	resultData.HeartRate = storedData.Data.HeartRate
+	resultData.MeasuredAt = storedData.MeasuredAt
 
-	utils.SendResponse(w, http.StatusOK, "", storedData)
+	// 返回JSON数据
+	utils.SendResponse(w, http.StatusOK, "ok", resultData)
 }
 
 // UUIDReportDataHandler 通过UUID上报心率数据
@@ -123,7 +127,7 @@ func (app *App) UUIDReportDataHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// 验证心率数据
-	if data.HeartRate <= 0 || data.HeartRate > 250 {
+	if data.Data.HeartRate <= 0 || data.Data.HeartRate > 250 {
 		utils.SendError(w, http.StatusBadRequest, nil, "Heart rate must be between 1-250")
 		return
 	}
@@ -184,9 +188,12 @@ func (app *App) PublicHeartRateHandler(w http.ResponseWriter, r *http.Request) {
 		utils.SendError(w, http.StatusInternalServerError, err, "Failed to parse data")
 		return
 	}
+	var resultData models.HeartRateDataResponse
+	resultData.HeartRate = data.Data.HeartRate
+	resultData.MeasuredAt = data.MeasuredAt
 
 	// 返回JSON数据
-	utils.SendResponse(w, http.StatusOK, "ok", data)
+	utils.SendResponse(w, http.StatusOK, "ok", resultData)
 }
 
 func (app *App) PublicHeartRateHTMLHandler(w http.ResponseWriter, r *http.Request) {

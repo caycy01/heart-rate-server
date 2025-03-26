@@ -30,8 +30,15 @@ type LoginRequest struct {
 }
 
 type HeartRateData struct {
-	HeartRate  int   `json:"heart_rate" validate:"required,min=30,max=250"`
+	Data struct {
+		HeartRate int `json:"heart_rate" validate:"required,min=1,max=250"`
+	} `json:"data"`
 	MeasuredAt int64 `json:"measured_at" validate:"required"`
+}
+
+type HeartRateDataResponse struct {
+	HeartRate  int   `json:"heart_rate"`
+	MeasuredAt int64 `json:"measured_at"`
 }
 
 type Response struct {
