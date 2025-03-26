@@ -11,8 +11,6 @@ import (
 )
 
 func InitRedis(cfg *config.Config) (*redis.Client, error) {
-	// 打印账号密码
-	fmt.Printf("redis addr: %s, password: %s, db: %d\n", cfg.RedisAddr, cfg.RedisPassword, cfg.RedisDB)
 	client := redis.NewClient(&redis.Options{
 		Addr:     cfg.RedisAddr,
 		Password: cfg.RedisPassword,
