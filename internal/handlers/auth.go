@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/go-playground/validator/v10"
+	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
@@ -46,6 +47,7 @@ func (app *App) RegisterHandler(w http.ResponseWriter, r *http.Request) {
 	user := models.User{
 		Username: req.Username,
 		Password: string(hashedPassword),
+		UUID:     uuid.New().String(),
 	}
 
 	result := app.DB.Create(&user)

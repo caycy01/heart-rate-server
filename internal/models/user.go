@@ -10,6 +10,7 @@ type User struct {
 	gorm.Model
 	Username string `gorm:"unique;not null"`
 	Password string `gorm:"not null"`
+	UUID     string `gorm:"uniqueIndex;size:36"`
 }
 
 type AuthInfo struct {

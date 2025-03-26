@@ -59,6 +59,16 @@ func main() {
 	publicRouter.HandleFunc("/register", app.RegisterHandler).Methods("POST")
 	publicRouter.HandleFunc("/login", app.LoginHandler).Methods("POST")
 
+	// 初始化缓存中间件
+	uuidCacheMiddleware := middleware.NewUUIDCacheMiddleware(db, redisClient)
+
+	// 应用到需要UUID转换的路由
+	uuidRouter := r.PathPrefix("/uuid").Subrouter()
+	uuidRouter.Use(uuidCacheMiddleware.Handler)
+	uuidRouter.HandleFunc("/{uuid}/receive_data", app.UUIDReportDataHandler).Methods("POST")
+	uuidRouter.HandleFunc("/{uuid}/latest-heart-rate", app.PublicHeartRateHandler).Methods("GET")
+	uuidRouter.HandleFunc("/widget/view/{uuid}", app.PublicHeartRateHTMLHandler).Methods("GET")
+
 	// Authenticated routes
 	authRouter := r.PathPrefix("").Subrouter()
 	authRouter.Use(middleware.AuthMiddleware(secureCookie, app.Config))
