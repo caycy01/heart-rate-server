@@ -17,8 +17,7 @@ COPY . .
 # 下载依赖作为单独的步骤，以利用 Docker 的缓存
 # 使用缓存挂载 /go/pkg/mod/ 以加快后续构建
 # 使用绑定挂载 go.sum 和 go.mod 以避免将它们复制到容器中
-RUN --mount=type=cache,target=/go/pkg/mod/ \
-    --mount=type=bind,source=go.mod,target=go.mod \
+RUN --mount=type=bind,source=go.mod,target=go.mod \
     go mod download -x
 
 # 这是构建目标的架构，由构建器传递
@@ -29,7 +28,7 @@ ARG TARGETARCH
 # 使用缓存挂载 /go/pkg/mod/ 以加快后续构建
 # 使用绑定挂载当前目录以避免将源代码复制到容器中
 RUN --mount=type=bind,target=. \
-    CGO_ENABLED=0 GOARCH=$TARGETARCH go build -o /bin/server .
+    CGO_ENABLED=1 GOARCH=$TARGETARCH go build -ldflags '-extldflags "-static"' -o /bin/server .
 
 ################################################################################
 # 创建一个新的阶段来运行应用程序，它包含应用程序的最小运行时依赖
@@ -40,6 +39,10 @@ FROM $DOCKER_URL/alpine:latest AS final
 # 使用缓存挂载 /var/cache/apk/ 以加快后续构建
 RUN sed -i 's#https\?://dl-cdn.alpinelinux.org/alpine#https://mirrors.cernet.edu.cn/alpine#g' /etc/apk/repositories && \
     apk --update add \
+        libc6-compat \
+        gcompat \
+        sqlite \
+        sqlite-dev \
         ca-certificates \
         musl-locales \
         tzdata \
