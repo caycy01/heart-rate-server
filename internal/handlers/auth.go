@@ -120,3 +120,19 @@ func (app *App) LogoutHandler(w http.ResponseWriter, r *http.Request) {
 	app.SecureCookie.ClearAuthCookie(w)
 	utils.SendResponse(w, http.StatusOK, "Logged out successfully", nil)
 }
+
+func (app *App) GetUUIDHandler(w http.ResponseWriter, r *http.Request) {
+	authInfo, err := app.SecureCookie.GetAuthInfo(r)
+	if err != nil {
+		utils.SendError(w, http.StatusUnauthorized, err, "Unauthorized")
+		return
+	}
+
+	var user models.User
+	result := app.DB.First(&user, authInfo.UserID)
+	if result.Error != nil {
+		utils.SendError(w, http.StatusInternalServerError, result.Error, "Database error")
+	}
+
+	utils.SendResponse(w, http.StatusOK, "", map[string]string{"uuid": user.UUID})
+}

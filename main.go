@@ -54,10 +54,9 @@ func main() {
 	r.Use(middleware.JSONContentTypeMiddleware)
 
 	// Public routes
-	publicRouter := r.PathPrefix("").Subrouter()
-	publicRouter.HandleFunc("/health", handlers.HealthHandler).Methods("GET")
-	publicRouter.HandleFunc("/register", app.RegisterHandler).Methods("POST")
-	publicRouter.HandleFunc("/login", app.LoginHandler).Methods("POST")
+	r.HandleFunc("/health", handlers.HealthHandler).Methods("GET")
+	r.HandleFunc("/register", app.RegisterHandler).Methods("POST")
+	r.HandleFunc("/login", app.LoginHandler).Methods("POST")
 
 	// 初始化缓存中间件
 	uuidCacheMiddleware := middleware.NewUUIDCacheMiddleware(db, redisClient)
@@ -74,6 +73,7 @@ func main() {
 	authRouter.Use(middleware.AuthMiddleware(secureCookie, app.Config))
 	authRouter.HandleFunc("/receive_data", app.ReceiveDataHandler).Methods("POST")
 	authRouter.HandleFunc("/latest-heart-rate", app.LatestHeartRateHandler).Methods("GET")
+	authRouter.HandleFunc("/uuid", app.GetUUIDHandler).Methods("GET")
 	authRouter.HandleFunc("/logout", app.LogoutHandler).Methods("POST")
 
 	// Create server
