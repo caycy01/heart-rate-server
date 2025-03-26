@@ -1,0 +1,39 @@
+name: Docker Build and Push
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    if: contains(github.event.head_commit.message, 'build')
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Log in to Private Registry
+        uses: actions/login-action@v3
+        with:
+          registry: ${{ vars.REGISTRY_URL }}
+          username: ${{ github.actor }}
+          password: ${{ vars.RELEASE_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: actions/setup-buildx-action@v3
+
+      - name: Build and push Docker image
+        uses: actions/build-push-action@v3
+        with:
+          build-args: |
+            http_proxy=${{ vars.HTTP_PROXY }}
+            https_proxy=${{ vars.HTTPS_PROXY }}
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ vars.REGISTRY_URL }}/${{ gitea.repository }}:latest
+
+      - name: Pull Docker image
+        run: |
+          docker pull ${{ vars.REGISTRY_URL }}/${{ gitea.repository }}:latest
