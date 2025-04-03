@@ -48,6 +48,12 @@ func main() {
 	// Create router
 	r := mux.NewRouter()
 
+	r.PathPrefix("/static/").Handler(
+		http.StripPrefix("/static/",
+			http.FileServer(http.Dir("./static")),
+		),
+	)
+
 	// Global middleware
 	//r.Use(middleware.LoggingMiddleware)
 	r.Use(middleware.RecoveryMiddleware)

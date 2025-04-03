@@ -4,6 +4,12 @@
 
 基于Go语言开发的实时心率数据监测与共享系统，提供安全可靠的API端点用于数据上报、查询及可视化展示。采用Redis实时存储、GORM关系映射，支持Docker容器化部署。
 
+## 🎖️ 服务器赞助商
+
+[![SponsorName](https://img.shields.io/badge/Powered_by-慈云数据-blue?style=for-the-badge&logo=aws)](https://www.zovps.com/)
+
+![Image](/static/sponsors/ciyun.png)
+
 ## 🚀 核心功能
 
 ### 用户认证体系

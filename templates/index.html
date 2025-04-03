@@ -62,7 +62,7 @@
         .github-section {
             text-align: center;
             padding: 40px 20px;
-            border-top: 1px solid rgba(0,0,0,0.1);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
             margin-top: 60px;
         }
 
@@ -92,6 +92,39 @@
             width: 100px;
             margin: 20px auto;
             animation: heart 1s linear infinite;
+        }
+
+        .sponsors-single {
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .logo-container {
+            background: linear-gradient(135deg, #ffffff 0%, #f1f3f5 100%);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .sponsor-logo {
+            width: 220px;
+            height: 60px;
+            object-fit: contain;
+            padding: 8px;
+        }
+
+        .sponsor-link:hover .logo-container {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(67, 97, 238, 0.15);
+        }
+
+        .sponsor-description {
+            margin-top: 15px;
+            color: #666;
+            font-size: 0.95rem;
         }
     </style>
 </head>
@@ -127,9 +160,23 @@
     <p style="color: #666;">当前演示心率：<span id="demo-rate">72</span> BPM</p>
 </div>
 
+<!-- 修改sponsors-section部分 -->
+<div class="sponsors-section">
+    <h2 style="text-align: center; margin-bottom: 30px; color: var(--primary);">服务器赞助商</h2>
+    <div class="sponsors-single">
+        <a href="https://www.zovps.com/" target="_blank" class="sponsor-link">
+            <div class="logo-container">
+                <img src="/static/sponsors/ciyun.png" alt="CiYun" class="sponsor-logo">
+            </div>
+            <p class="sponsor-description">提供高性能云计算服务支持</p>
+        </a>
+    </div>
+</div>
+
 <div class="github-section">
     <a href="https://github.com/xihan123/HeartRateHook" target="_blank" class="github-link">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
         </svg>
         GitHub 仓库
