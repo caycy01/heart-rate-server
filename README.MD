@@ -7,6 +7,7 @@
 ## 🎖️ 服务器赞助商
 
 [![SponsorName](https://img.shields.io/badge/Powered_by-慈云数据-blue?style=for-the-badge&logo=aws)](https://www.zovps.com/)
+
 ![Image](/static/sponsors/ciyun.png)
 
 ## 🚀 核心功能
@@ -105,7 +106,10 @@
     docker run -d -p 8080:8080 --name heart-rate-server heart-rate-server
 ```
 
-## [示例服务地址](https://public-heart-rate-api.xihan.lat/)
+## 示例服务地址
+
+[![SponsorName](https://img.shields.io/badge/Server-香港-blue?style=for-the-badge)](https://public-heart-rate-api.xihan.website/)
+[![SponsorName](https://img.shields.io/badge/Server-CloudFlare-blue?style=for-the-badge)](https://public-heart-rate-api.xihan.lat/)
 
 简单注册登录一下就可以用了，不过是基于CF的，国内速度可能很慢
 
