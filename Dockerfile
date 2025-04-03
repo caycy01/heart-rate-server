@@ -51,21 +51,21 @@ RUN sed -i 's#https\?://dl-cdn.alpinelinux.org/alpine#https://mirrors.cernet.edu
 
 # 创建应用程序将运行的非特权用户
 # 请参阅 https://docs.docker.com/go/dockerfile-user-best-practices/
-ARG UID=10001
-RUN adduser \
-    --disabled-password \
-    --gecos "" \
-    --home "/nonexistent" \
-    --shell "/sbin/nologin" \
-    --no-create-home \
-    --uid "${UID}" \
-    appuser
-USER appuser
+#ARG UID=10001
+#RUN adduser \
+#    --disabled-password \
+#    --gecos "" \
+#    --home "/nonexistent" \
+#    --shell "/sbin/nologin" \
+#    --no-create-home \
+#    --uid "${UID}" \
+#    appuser
+#USER appuser
 
 # 从 "build" 阶段复制可执行文件
 COPY --from=build /bin/server /bin/
 COPY templates /templates/
-
+COPY static /static/
 # 暴露应用程序监听的端口
 EXPOSE 8080
 
