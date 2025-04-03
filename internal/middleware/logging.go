@@ -4,6 +4,7 @@ import (
 	"heart-rate-server/internal/utils"
 	"log"
 	"net/http"
+	"strings"
 	"time"
 )
 
@@ -29,6 +30,10 @@ func RecoveryMiddleware(next http.Handler) http.Handler {
 
 func JSONContentTypeMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if strings.HasPrefix(r.URL.Path, "/static/") {
+			next.ServeHTTP(w, r)
+			return
+		}
 		w.Header().Set("Content-Type", "application/json")
 		next.ServeHTTP(w, r)
 	})
