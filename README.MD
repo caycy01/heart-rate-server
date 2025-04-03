@@ -7,7 +7,6 @@
 ## 🎖️ 服务器赞助商
 
 [![SponsorName](https://img.shields.io/badge/Powered_by-慈云数据-blue?style=for-the-badge&logo=aws)](https://www.zovps.com/)
-
 ![Image](/static/sponsors/ciyun.png)
 
 ## 🚀 核心功能
