@@ -2,7 +2,9 @@ package config
 
 import (
 	"encoding/hex"
+	"fmt"
 	"os"
+	"path/filepath"
 	"strconv"
 	"time"
 )
@@ -17,6 +19,19 @@ type Config struct {
 	CookieBlockKey []byte
 	BcryptCost     int
 	TokenExpiry    time.Duration
+}
+
+func (c *Config) Validate() error {
+	if c.DBDSN == "" {
+		return fmt.Errorf("database DSN must be configured")
+	}
+
+	// 验证文件路径格式
+	if !filepath.IsAbs(c.DBDSN) {
+		return fmt.Errorf("database path should be absolute path")
+	}
+
+	return nil
 }
 
 func Load() (*Config, error) {

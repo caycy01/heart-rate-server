@@ -23,6 +23,11 @@ func main() {
 		log.Fatalf("Failed to load configuration: %v", err)
 	}
 
+	// Validate configuration
+	if err := cfg.Validate(); err != nil {
+		log.Fatalf("Database Configuration validation failed: %v", err)
+	}
+
 	// Initialize storage
 	db, err := storage.InitDB(cfg)
 	if err != nil {
