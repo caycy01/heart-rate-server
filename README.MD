@@ -106,6 +106,23 @@
     docker run -d -p 8080:8080 --name heart-rate-server heart-rate-server
 ```
 
+### 安全注意事项
+
+当部署到外网环境时必须启用HTTPS协议, 安全Cookie机制强制启用Secure属性 [参见SecureCookie实现](internal/middleware/auth.go#L32-L40)
+
+### 环境变量配置
+
+| 变量名              | 描述                                         | 默认值            |
+|------------------|--------------------------------------------|----------------|
+| SERVER_PORT      | 监听端口                                       | 8080           |
+| DB_DSN           | Sqlite数据库路径                                | heartrate.db   |
+| REDIS_ADDR       | Redis主机地址                                  | localhost:6379 |
+| REDIS_PASSWORD   | Redis密码（如果有）                               | ""             |
+| REDIS_DB         | Redis数据库索引                                 | 0              |
+| BCRYPT_COST      | Bcrypt加密成本                                 | 10             |
+| COOKIE_HASH_KEY  | Cookie加密密钥(64位Hex字符串 openssl rand -hex 64) | ""             |
+| COOKIE_BLOCK_KEY | Cookie加密密钥(32位Hex字符串 openssl rand -hex 32) | ""             |
+
 ## 示例服务地址
 
 [![SponsorName](https://img.shields.io/badge/Server-香港-blue?style=for-the-badge)](https://public-heart-rate-api.xihan.website/)
